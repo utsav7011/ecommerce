@@ -8,3 +8,9 @@ TextStyle appstyle(double size, Color color, FontWeight fw) {
     fontWeight: fw,
   );
 }
+
+TextStyle appstyleWithHeight(
+    double size, Color color, FontWeight fw, double ht) {
+  return GoogleFonts.poppins(
+      fontSize: size, color: color, fontWeight: fw, height: ht);
+}
