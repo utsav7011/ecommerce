@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  cached_network_image: ^3.3.1
   community_material_icon: ^5.9.55
   cupertino_icons: ^1.0.2
   flutter:
@@ -63,7 +64,6 @@ flutter:
     - assets/images/top_image.png
     - assets/images/usa.svg
     - assets/images/user.jpeg
-    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

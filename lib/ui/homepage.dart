@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/views/shared/appstyle.dart';
 import 'package:flutter/material.dart';
 
@@ -19,9 +20,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         child: Stack(
           children: [
             Container(
-              padding: EdgeInsets.fromLTRB(16, 45, 0, 0),
+              padding: const EdgeInsets.fromLTRB(16, 45, 0, 0),
               height: MediaQuery.of(context).size.height * 0.35,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
                     "assets/images/top_image.png",
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
               ),
               child: Container(
-                padding: EdgeInsets.only(left: 8, bottom: 15),
+                padding: const EdgeInsets.only(left: 8, bottom: 15),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,43 +81,116 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             Padding(
               padding: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.265),
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.405,
-                        color: Colors.amber,
-                        child: Column(
-                          children: [
-                            Text(
-                              'Latest Shoes',
-                              style:
-                                  appstyle(24, Colors.black, FontWeight.bold),
-                            )
-                          ],
+              child: Container(
+                padding: const EdgeInsets.only(left: 12),
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    Column(
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.405,
+                          child: ListView.builder(
+                              itemCount: 6,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    color: Colors.green,
+                                    height: MediaQuery.of(context).size.height,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.6,
+                                  ),
+                                );
+                              }),
                         ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.405,
-                        color: Colors.green,
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.405,
-                        color: Colors.blue,
-                      )
-                    ],
-                  ),
-                ],
+                        Column(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(12, 20, 12, 20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Latest Shoes',
+                                    style: appstyle(
+                                        24, Colors.black, FontWeight.bold),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Show All',
+                                        style: appstyle(
+                                            20, Colors.black, FontWeight.w400),
+                                      ),
+                                      const Icon(Icons.arrow_right),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.13,
+                              child: ListView.builder(
+                                  itemCount: 6,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black,
+                                              spreadRadius: 1,
+                                              blurRadius: 0.8,
+                                              offset: Offset(0, 1),
+                                            )
+                                          ],
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(16),
+                                          ),
+                                        ),
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.12,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.28,
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D",
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.405,
+                          color: Colors.green,
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.405,
+                          color: Colors.blue,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
