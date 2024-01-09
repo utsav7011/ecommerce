@@ -1,6 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/views/shared/appstyle.dart';
 import 'package:flutter/material.dart';
+
+import '../models/sneakers_model.dart';
+import '../services/helper.dart';
+import '../views/shared/home_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,9 +15,35 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late final TabController _tabController =
       TabController(length: 3, vsync: this);
+
+  late Future<List<Sneakers>> _male;
+  late Future<List<Sneakers>> _female;
+  late Future<List<Sneakers>> _kids;
+
+  void getMale() {
+    _male = Helper().getMaleSneakers();
+  }
+
+  void getFemale() {
+    _female = Helper().getFemaleSneakers();
+  }
+
+  void getKids() {
+    _kids = Helper().getkidsSneakers();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getMale();
+    getFemale();
+    getKids();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFE2E2E2),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Stack(
@@ -55,6 +84,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ),
                     ),
                     TabBar(
+                      padding: EdgeInsets.zero,
                       indicatorSize: TabBarIndicatorSize.label,
                       indicatorColor: Colors.transparent,
                       controller: _tabController,
@@ -86,109 +116,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.405,
-                          child: ListView.builder(
-                              itemCount: 6,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    color: Colors.green,
-                                    height: MediaQuery.of(context).size.height,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.6,
-                                  ),
-                                );
-                              }),
-                        ),
-                        Column(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(12, 20, 12, 20),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Latest Shoes',
-                                    style: appstyle(
-                                        24, Colors.black, FontWeight.bold),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Show All',
-                                        style: appstyle(
-                                            20, Colors.black, FontWeight.w400),
-                                      ),
-                                      const Icon(Icons.arrow_right),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.13,
-                              child: ListView.builder(
-                                  itemCount: 6,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          color: Colors.white,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.black,
-                                              spreadRadius: 1,
-                                              blurRadius: 0.8,
-                                              offset: Offset(0, 1),
-                                            )
-                                          ],
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(16),
-                                          ),
-                                        ),
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.12,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.28,
-                                        child: CachedNetworkImage(
-                                          imageUrl:
-                                              "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8fDA%3D",
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.405,
-                          color: Colors.green,
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.405,
-                          color: Colors.blue,
-                        )
-                      ],
-                    ),
+                    HomeWidget(male: _male),
+                    HomeWidget(male: _female),
+                    HomeWidget(male: _kids),
                   ],
                 ),
               ),
@@ -196,6 +126,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ],
         ),
       ),
-    );
+    ); 
   }
 }

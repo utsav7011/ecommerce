@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:ecommerce/views/shared/appstyle.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +31,7 @@ class _ProductCardState extends State<ProductCard> {
         borderRadius: BorderRadius.circular(16),
         child: Container(
           height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          width: MediaQuery.of(context).size.width * 0.65,
           decoration: const BoxDecoration(boxShadow: [
             BoxShadow(
               color: Colors.white,
@@ -94,11 +92,11 @@ class _ProductCardState extends State<ProductCard> {
                     Row(
                       children: [
                         Text(
-                          'COlors',
+                          'Colors',
                           style: appstyle(18, Colors.grey, FontWeight.w500),
                         ),
                         const SizedBox(
-                          width: 5,
+                          width: 10,
                         ),
                         ChoiceChip(
                           label: const Text(''),
