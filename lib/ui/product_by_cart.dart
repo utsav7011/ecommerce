@@ -1,3 +1,4 @@
+import 'package:ecommerce/views/shared/category_btn.dart';
 import 'package:ecommerce/views/shared/custom_spacer.dart';
 import 'package:ecommerce/views/shared/staggered_tile.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,12 @@ import '../views/shared/appstyle.dart';
 import '../views/shared/product_card.dart';
 
 class ProductByCart extends StatefulWidget {
-  const ProductByCart({super.key});
+  ProductByCart({
+    super.key,
+    required this.tabIndex,
+  });
+
+  final int tabIndex;
 
   @override
   State<ProductByCart> createState() => _ProductByCartState();
@@ -43,6 +49,16 @@ class _ProductByCartState extends State<ProductByCart>
     getFemale();
     getKids();
   }
+
+  List<String> brand = [
+    'assets/images/adidas.png',
+    'assets/images/gucci.png',
+    'assets/images/jordan.png',
+    'assets/images/nike.png',
+    'assets/images/gucci.png',
+    'assets/images/jordan.png',
+    'assets/images/nike.png',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -262,15 +278,15 @@ class _ProductByCartState extends State<ProductByCart>
   }
 
   Future<dynamic> filter() {
+    double _value = 100;
     return showModalBottomSheet(
-      context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       barrierColor: Colors.white54,
+      context: context,
       builder: (context) => Container(
-        height: MediaQuery.of(context).size.height * 0.8,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        height: MediaQuery.of(context).size.height * 0.82,
+        decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(25),
@@ -278,25 +294,139 @@ class _ProductByCartState extends State<ProductByCart>
           ),
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
-              height: 5,
-              width: 40,
+              height: MediaQuery.of(context).size.height * 0.8,
+              width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                  color: Colors.black38),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              // color: Colors.black38,
               child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.5,
-                child: Text(
-                  "Data",
-                  style: TextStyle(fontSize: 40, color: Colors.black),
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: Column(
+                  children: [
+                    const CustomSpacer(),
+                    Text(
+                      "Filter",
+                      style: appstyle(40, Colors.black, FontWeight.bold),
+                    ),
+                    const CustomSpacer(),
+                    Text(
+                      "Gender",
+                      style: appstyle(20, Colors.black, FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CategoryBtn(
+                          btnClr: Colors.black,
+                          label: "Men",
+                          onPress: () {},
+                        ),
+                        CategoryBtn(
+                          btnClr: Colors.grey,
+                          label: "Women",
+                          onPress: () {},
+                        ),
+                        CategoryBtn(
+                          btnClr: Colors.grey,
+                          label: "Kids",
+                          onPress: () {},
+                        ),
+                      ],
+                    ),
+                    const CustomSpacer(),
+                    Text(
+                      "Category",
+                      style: appstyle(20, Colors.black, FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CategoryBtn(
+                          btnClr: Colors.black,
+                          label: "Shoes",
+                          onPress: () {},
+                        ),
+                        CategoryBtn(
+                          btnClr: Colors.grey,
+                          label: "Apparrels",
+                          onPress: () {},
+                        ),
+                        CategoryBtn(
+                          btnClr: Colors.grey,
+                          label: "Accessories",
+                          onPress: () {},
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Price",
+                      style: appstyle(20, Colors.black, FontWeight.bold),
+                    ),
+                    Slider(
+                        value: _value,
+                        activeColor: Colors.black,
+                        inactiveColor: Colors.grey,
+                        thumbColor: Colors.black,
+                        max: 500,
+                        divisions: 50,
+                        label: _value.toString(),
+                        secondaryTrackValue: 200,
+                        onChanged: (double value) {}),
+                    const CustomSpacer(),
+                    Text(
+                      "Brands",
+                      style: appstyle(
+                        20,
+                        Colors.black,
+                        FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      height: 80,
+                      child: ListView.builder(
+                        itemCount: brand.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade200,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(12),
+                                ),
+                              ),
+                              child: Image.asset(
+                                brand[index],
+                                height: 60,
+                                width: 80,
+                                color: Colors.black,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),

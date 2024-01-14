@@ -89,22 +89,25 @@ class _ProductCardState extends State<ProductCard> {
                       widget.price,
                       style: appstyle(30, Colors.black, FontWeight.w600),
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          'Colors',
-                          style: appstyle(18, Colors.grey, FontWeight.w500),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        ChoiceChip(
-                          label: const Text(''),
-                          selected: selected,
-                          visualDensity: VisualDensity.compact,
-                          selectedColor: Colors.black,
-                        ),
-                      ],
+                    Container(
+                      margin: EdgeInsets.only(right: 10),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Colors',
+                            style: appstyle(18, Colors.grey, FontWeight.w500),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          ChoiceChip(
+                            label: const Text(''),
+                            selected: selected,
+                            visualDensity: VisualDensity.compact,
+                            selectedColor: Colors.black,
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),

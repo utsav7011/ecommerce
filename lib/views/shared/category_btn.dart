@@ -17,7 +17,8 @@ class CategoryBtn extends StatelessWidget {
     return MaterialButton(
       onPressed: onPress,
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.255,
+        height: 45,
+        width: MediaQuery.of(context).size.width * 0.25,
         decoration: BoxDecoration(
           border: Border.all(
             width: 1,
@@ -26,9 +27,11 @@ class CategoryBtn extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(9),
         ),
-        child: Text(
-          label,
-          style: appstyle(20, btnClr, FontWeight.w600),
+        child: Center(
+          child: Text(
+            label,
+            style: appstyle(20, btnClr, FontWeight.w600),
+          ),
         ),
       ),
     );

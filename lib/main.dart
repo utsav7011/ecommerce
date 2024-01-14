@@ -1,11 +1,15 @@
+import 'dart:js';
+
 import 'package:ecommerce/controller/mainscreen_Provider.dart';
+import 'package:ecommerce/controller/product_provider.dart';
 import 'package:ecommerce/ui/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context) => MainScreenNotifier())
+    ChangeNotifierProvider(create: (context) => MainScreenNotifier()),
+    ChangeNotifierProvider(create: (context) => ProductNotifier())
   ], child: const MyApp()));
 }
 

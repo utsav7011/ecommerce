@@ -1,3 +1,5 @@
+import 'package:ecommerce/ui/product_by_cart.dart';
+import 'package:ecommerce/ui/product_page.dart';
 import 'package:ecommerce/views/shared/product_card.dart';
 import 'package:flutter/material.dart';
 
@@ -9,10 +11,11 @@ class HomeWidget extends StatelessWidget {
   const HomeWidget({
     super.key,
     required Future<List<Sneakers>> male,
+    required this.tabIndex,
   }) : _male = male;
 
   final Future<List<Sneakers>> _male;
-
+  final int tabIndex;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -33,12 +36,21 @@ class HomeWidget extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     final shoe = snapshot.data![index];
-                    return ProductCard(
-                      price: '\$${shoe.price}',
-                      category: shoe.category,
-                      id: shoe.id,
-                      name: shoe.name,
-                      image: shoe.imageUrl[0],
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProductPage(
+                                    id: shoe.id, category: shoe.category)));
+                      },
+                      child: ProductCard(
+                        price: '\$${shoe.price}',
+                        category: shoe.category,
+                        id: shoe.id,
+                        name: shoe.name,
+                        image: shoe.imageUrl[0],
+                      ),
                     );
                   });
             },
@@ -57,9 +69,19 @@ class HomeWidget extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text(
-                        'Show All',
-                        style: appstyle(20, Colors.black, FontWeight.w400),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProductByCart(
+                                        tabIndex: tabIndex,
+                                      )));
+                        },
+                        child: Text(
+                          'Show All',
+                          style: appstyle(20, Colors.black, FontWeight.w400),
+                        ),
                       ),
                       const Icon(Icons.arrow_right),
                     ],
