@@ -1,5 +1,6 @@
 import 'package:ecommerce/controller/mainscreen_Provider.dart';
 import 'package:ecommerce/ui/cartpage.dart';
+import 'package:ecommerce/ui/favourites.dart';
 import 'package:ecommerce/ui/homepage.dart';
 import 'package:ecommerce/ui/product_by_cart.dart';
 import 'package:ecommerce/ui/profile.dart';
@@ -15,7 +16,7 @@ class MainScreen extends StatelessWidget {
   List<Widget> PageList = [
     HomePage(),
     SearchPage(),
-    HomePage(),
+    FavouritesPage(),
     CartPage(),
     ProfilePage()
   ];

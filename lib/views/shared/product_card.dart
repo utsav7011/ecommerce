@@ -1,5 +1,9 @@
+import 'package:ecommerce/models/constants.dart';
+import 'package:ecommerce/ui/favourites.dart';
 import 'package:ecommerce/views/shared/appstyle.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:ionicons/ionicons.dart';
 
 class ProductCard extends StatefulWidget {
   ProductCard(
@@ -21,6 +25,28 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
+  final _fav_box = Hive.box('fav_box');
+
+  Future<void> _createFav(Map<String, dynamic> addFav) async {
+    await _fav_box.add(addFav);
+    getFavourites();
+  }
+
+  getFavourites() {
+    final favData = _fav_box.keys.map((key) {
+      final item = _fav_box.get(key);
+      return {
+        "key": key,
+        "id": "id",
+      };
+    }).toList();
+
+    favor = favData.toList();
+    ids = favor.map((item) => item['id']).toList();
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     bool selected = true;
@@ -57,8 +83,25 @@ class _ProductCardState extends State<ProductCard> {
                       right: 10,
                       top: 10,
                       child: GestureDetector(
-                        onTap: () {},
-                        child: const Icon(Icons.heart_broken_outlined),
+                        onTap: () async {
+                          if (ids.contains(widget.id)) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FavouritesPage()));
+                          } else {
+                            _createFav({
+                              "id": widget.id,
+                              "name": widget.name,
+                              "category": widget.category,
+                              "price": widget.price,
+                              "imageUrl": widget.image[0],
+                            });
+                          }
+                        },
+                        child: ids.contains(widget.id)
+                            ? const Icon(Ionicons.heart)
+                            : const Icon(Ionicons.heart_outline),
                       )),
                 ],
               ),
