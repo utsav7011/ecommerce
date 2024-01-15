@@ -106,7 +106,8 @@ class _FavouritesPageState extends State<FavouritesPage> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 12, left: 20),
+                                    padding: const EdgeInsets.only(
+                                        top: 12, left: 20),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -155,7 +156,6 @@ class _FavouritesPageState extends State<FavouritesPage> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 MainScreen()));
-                                    setState(() {});
                                   },
                                   child: const Icon(
                                     Ionicons.heart_dislike,
